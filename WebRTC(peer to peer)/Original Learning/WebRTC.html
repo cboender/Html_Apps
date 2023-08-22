@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Peer To Peer Sample</title>
+    
+    
+    <style>
+        body {
+            margin: 0px;
+        }
+    
+        .Left {
+            background-color: #CACACA;
+            position: absolute;
+            width: 500px;
+            height: 100%;
+        }
+        
+        .Right {
+            background-color: #CCDDFF;
+            position: absolute;
+            right: 0px;
+            width: calc(100% - 500px);
+            height: 100%;
+            
+        }
+        #ICEBox {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: #FFF;
+            overflow-y: scroll;
+            display: inline-block;
+        }
+        .ActionDiv {
+            width: calc(100% - 210px);
+            position: absolute;
+            right: 0px;
+            display: inline-block;
+            padding: 0px 5px 5px 5px;
+        }
+        
+        .FullWidthButton {
+            width: 100%;
+            height: 100px;
+        }
+        
+        .HalfWidthButton {
+            width: calc(50% - 2px);
+            height: 100px;
+            display: inline-block;
+        }
+        
+        .ApplyDiv {
+            padding: 5px;
+        }
+        
+        .InputArea {
+          width: calc(100% - 5px);
+          resize: none;
+          height: 200px;
+        }
+    </style>
+    <script src="adapter.js"> </script>
+    <script src="utility.js"> </script>
+    <script src="WRTCWrapper.js"> </script>
+    <script>
+        var local;
+        var remote;
+        
+        function connect(initializer ) {
+            var pc = start(initializer);
+            if (initializer) {
+                local = pc;
+            }else {
+                remote = pc;
+            }
+        }
+        
+        function copy() {
+            //Get data
+            var tf = document.createElement("input");
+            var pc = local ? local : remote;
+            console.log(pc.canidate);
+              
+            var json = {
+                session: getJSON(pc.ansReply),
+                candidate: getJSON(pc.candidate[0])
+            }
+            tf.value = JSON.stringify(json);
+            tf.type='text';
+            var body = document.getElementsByTagName('body')[0];
+            body.appendChild(tf);
+            tf.select();
+            document.execCommand('copy');
+            body.removeChild(tf);
+        }
+     
+        function send() {
+            var data = getElement("Data").value;
+            console.log(local);
+            if (local.sc) {
+                print("Sent:" + data);
+                local.sc.send(data);
+            }
+        }
+        
+        function importRequest() {
+            var data = expandData();
+            remote.con.setRemoteDescription(data.session);
+            print("Imported Request");
+            
+            remote.con.addIceCandidate(data.candidate).then(function() {print("Candidate imported")}, function(evt) {print(evt.toString())});
+            
+            createReply(remote);
+            print ("Response created");
+        }
+        
+        function importResponse() {
+          var data = expandData();
+            local.con.setRemoteDescription(data.session);
+            
+            local.con.addIceCandidate(data.candidate).then(function() {print("Candidate imported")}, function(evt) {print(evt.toString())});
+        }
+        
+        function expandData() {
+            var data = getElement("signalResponse").value;
+            data = JSON.parse(data);
+            
+            var session = new RTCSessionDescription(data.session);
+            var candidate = new RTCIceCandidate(data.candidate); 
+            return {
+                session : session,
+                candidate: candidate
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="Left">
+        <input type="button" onclick="connect(true)" value="Create Connection" style="margin-bottom: 10px;"  class="HalfWidthButton" ></input>
+        <input type="button" onclick="connect(false)" value="Start Response" style="margin-bottom: 10px;"  class="HalfWidthButton" ></input>
+        
+        <div id="ICEBox" ></div>
+        <div class="ActionDiv">
+             <input type="button" onclick="copy()" value="Copy Request To Clipboard" class="FullWidthButton"></input>
+        </div>
+        <div class="ApplyDiv">
+            <textArea id="signalResponse" class="InputArea"></textArea>
+            <input type="button" onclick="importRequest()" value="Import Request" class="HalfWidthButton"></input>
+            <input type="button" onclick="importResponse()" value="Import Response" class="HalfWidthButton"></input>
+        </div>        
+    </div>
+    <div class="Right">
+        <div styleClass="chatWindow">
+            <input id="Data" type="text" style="width: calc(100% - 110px)"></input>
+            <input type="button" onclick="send()" value="Send" style="display: inline-block; width: 100px;" ></input>
+        </div>
+
+    <div style="margin-top: 10px;" id="message"></div>
+    </div>
+</body>
+
+</html>

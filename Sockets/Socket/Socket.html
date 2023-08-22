@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Socket Sample 1</title>
+
+    <script>
+        var socket;
+        function connect() {
+            try {
+                socket = new WebSocket("ws://127.0.0.1:19000");
+                socket.onopen = function() {
+                   appendMessage("Connected", "System");
+                }
+				
+				socket.onclose = function() {
+                   appendMessage("Disconnected", "System");
+                }
+				socket.onmessage = function(event) {
+					appendMessage(event.data, "Server");
+				}
+                               
+            }catch (exp) {
+				appendMessage(exp, "System");
+            }
+        }
+		
+		function appendMessage(message, sender) {
+			var html = getElement("message").innerHTML;
+			html += "<span>" + sender + ": " + message + "</span><br>"
+			getElement("message").innerHTML = html;
+		}
+        
+        function send() {
+            if (!socket) {
+                console.log('Socket is not defined');
+                return;
+            } else if (socket.readyState != 1){
+                console.log('Socket in status of ' + socket.readyState);
+                return;
+            }
+			
+			var data = getElement("Data").value;
+			appendMessage(data, "Me");
+			socket.send(data);
+        }
+        function getElement(Id) {
+            return document.getElementById(Id);
+        }
+    </script>
+
+</head>
+
+<body>
+    <input type="button" onclick="connect()" value="Connect" ></input>
+    
+    <input id="Data" type="text" ></input>
+    <input type="button" onclick="send()" value="Send" ></input>
+    
+
+    <div id="message"></div>
+    
+
+</body>
+
+</html>

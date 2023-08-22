@@ -1,0 +1,71 @@
+<html>
+
+<head>
+<style>
+	.Output {
+		border: 1px solid #000;
+		background-color: #F8F8F8;
+		width: 300px;
+		min-height: 200px;
+		display: inline-block;
+	}
+</style>
+<title>Database Viewer</title>
+<script>
+	function defaultParams(defaultVal = "World", val1) {
+		if (window.Worker) {
+			/*let worker = new Worker('Worker1.js')
+			worker.onmessage = function(event) {
+				console.log('Recieved message back')
+			}
+			
+			worker.postMessage('Message') */
+			
+			let out1 = document.getElementById('print1')
+			let out2 = document.getElementById('print2')
+			out1.innerHTML = ""
+			out2.innerHTML = ""
+			test('one', out1)
+			test('two', out2)
+		}
+		else {
+			alert('No worker')
+		}
+	}
+	
+	async function printText(text) {
+		console.log(text)
+	}
+	
+	
+	const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+	
+	async function test(labelKey = 'Value', element) {
+		printText(`Start Test key '${labelKey}'`)
+		let x = 0
+		let max = 1000
+		
+		for (let x = 0; x < 1000; x++) {
+			let paragraph = document.createElement('p')
+			paragraph.innerText = `${labelKey} ${x}`
+			element.appendChild(paragraph)
+			await sleep(2)
+		}
+	}
+</script>
+</head>
+
+<body">
+<button type="button" onclick="defaultParams('Testing','Hello')" >
+	Default Button
+</button>
+
+<div>
+<div class="Output" id="print1"></div>
+<div class="Output" id="print2"></div>
+</div>
+<script>
+</script>
+</body>
+
+<html>

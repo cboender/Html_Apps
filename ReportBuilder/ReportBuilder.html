@@ -1,0 +1,46 @@
+<html>
+<head>
+	<link rel="stylesheet" href="styling.css">
+	<script src="utility.js" ></script>
+	<script src="DraggableContainer.js" ></script>
+	<script src="Table.js" ></script>
+	<script src="ResizableBox.js" ></script>
+	<script src="ReportBuilder.js" ></script>
+	
+	<script>
+		function initializeApp() {
+			let config = {
+				documentPane: document.getElementById('page'),
+				settingsPane: document.getElementById('settingsBox')		
+			}
+			ReportBuilder.init(config);
+			
+			let table = new Table(document.getElementById('Table'));
+			table.addColumn('Column 1');
+			table.addColumn('Column 2');
+			table.addColumn('Column 3');
+		}
+	</script>
+</head>
+<body class="ReportBuilderContainer" onload="initializeApp()">
+	<div id="reportDisplay">
+		<div id="documentPane">
+			<div id="Table">
+				
+			</div>
+		</div>
+	</div>
+	
+	<div id="settingsBox">
+		<div class="SettingsHeader DragBar">
+			Settings Header
+		</div>
+		<div class="Settings-Content">
+			<p style="padding-left: 20px;">Settings Placeholder</p>
+		</div>
+		
+		
+	</div>
+</body>
+
+</html>

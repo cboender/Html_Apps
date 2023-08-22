@@ -1,0 +1,147 @@
+body {
+	height: 100%;
+	margin: 0px;
+	font-size: 24px;
+}
+
+#settingsBox {
+	width: 500px;
+	height: 300px;
+	border-left: 1px solid #858585;
+	background-color: #AAA;
+	position: fixed;
+}
+
+#reportDisplay {
+	flex: 1;
+	height: 100%;
+	background-color: #888;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#documentPane {
+	background-color: #BBB;
+	width: 38vw;
+	height: calc(38vw * 1.29);
+	margin: 20px;
+}
+
+.ReportBuilderContainer {
+	display: flex;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.SettingsHeader {
+	background-color: #777;
+	width: 100%;
+	text-align: center;
+	cursor: move;
+	height: 2em;
+	border-bottom: 1px solid #000;
+	padding-top: .4em;
+}
+
+.table {
+	border: 1px solid #000;
+    width: 400px;
+    top: 50px;
+	left: 50px;
+    height: 200px;
+    position: relative;
+	display: flex;
+}
+
+.resizer-bar {
+	position: absolute;
+}
+
+.resizer-bar.left, .resizer-bar.right {
+	width: 4px;
+	top: 0px;
+	bottom: 0px;
+	cursor: ew-resize;
+}
+.resizer-bar.top, .resizer-bar.bottom {
+	height: 4px;
+	left: 0px;
+	right: 0px;
+	cursor: ns-resize;
+}
+
+.resizer-bar.left {
+	left: -2px;
+}
+
+.resizer-bar.right {
+	right: -2px;
+}
+.resizer-bar.top {
+	top: -2px;
+}
+.resizer-bar.bottom {
+	bottom: -2px;
+}
+
+.resizer-bar:hover {
+	background-color: #F00;
+}
+
+.resize-corner {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+}
+
+.resize-corner.corner-nw, .resize-corner.corner-se {
+	cursor: nwse-resize;
+}
+.resize-corner.corner-ne, .resize-corner.corner-sw {
+	cursor: nesw-resize;
+}
+
+.resize-corner.corner-nw {
+	left: -2px;
+	top: -2px;
+}
+.resize-corner.corner-se {
+	right: -2px;
+	bottom: -2px;
+}
+.resize-corner.corner-ne {
+	top: -2px;
+	right: -2px;
+}
+.resize-corner.corner-sw {
+	left: -2px;
+	bottom: -2px;
+}
+
+.resize-corner:hover {
+	background-color: #0F0;
+}
+
+.column.fill {
+	flex: 1;
+}
+
+.column {
+	height: 100%;
+	overflow: hidden;
+}
+
+.column:not(:last-of-type) {
+	border-right: 1px solid #000;
+}
+
+.TableColumnHeader {
+	padding: 5px;
+	border-bottom: 1px solid #000;
+	text-align: center;
+	background-color: #999;
+}

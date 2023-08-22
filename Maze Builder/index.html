@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="utility.js" ></script>
+		<script src="maze.js" ></script>
+		<link rel="stylesheet" href="styles.css">
+		<style> 
+		.superMe {
+			margin: 10px;
+		  width: 100px;
+		  height: 100px;
+
+		--tr: 0px;
+		--tl: 0px;
+		--br: 0px;
+		--bl: 0px;
+
+		  background:
+			linear-gradient(to bottom, #33AA33 var(--tr), transparent var(--tr)) 0 0,
+			linear-gradient(to bottom, #33AA33 var(--tl), transparent var(--tl)) 100% 0,
+			linear-gradient(to top, #33AA33 var(--bl), transparent var(--bl)) 0 100%,
+			linear-gradient(to top, #33AA33 var(--br), transparent var(--br)) 100% 100%;
+
+		  background-repeat: no-repeat;
+		  background-size: 3px 3px;
+		}
+		
+		.tr {
+			--tr: 3px;
+		}
+</style>
+	</head>
+	
+	<body>
+		
+		<div id="header">
+			<div id="headerContent">
+				<button onclick="buildMaze();" >Draw new Maze</button>
+				<label for="width">Width</label>
+				<input id="width" type="number" value="6" />
+				<label for="height">height</label>
+				<input id="height" type="number" value="6" />
+				<label for="branchWeight">Branching weight</label>
+				<input id="branchWeight" type="number" value=".8" step=".1" min="0" />
+			</div>
+		</div>
+		<div id="content">
+			<div id="Container" ></div>
+		<div>
+		<div class="superMe"></div>
+		<script>
+			let container = document.getElementById('Container');
+			let maze = new Maze(container, 6,6,.4);
+			buildMaze();
+			
+			function buildMaze() {
+				let width = document.getElementById("width").value;
+				let height =  document.getElementById("height").value;
+				let weight =  document.getElementById("branchWeight").value;
+				let maze = new Maze(container, width,height,weight);
+				maze.createMaze();
+			}
+		</script>
+	</body>
+</html>
+

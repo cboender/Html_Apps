@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<script src="utility.js"> </script>
+	<script src="RTCConnection.js"> </script>
+    <script src="adapter.js"> </script>
+    <script src="app.js"> </script>
+	<script src="TabPanel.js"></script>
+	<link rel="stylesheet" href="styles.css" />
+
+<title>Peer To Peer Sample</title>
+</head>
+
+<body>
+    <div id="Left">
+		<div class="tabHeader">
+			<div class="tabHead" targetTab="Initializer">
+				<span class="tab-text">
+					Initalize
+				</span>
+			</div>
+			<div class="tabHead" targetTab="Joiner">
+				<span class="tab-text">
+					Join
+				</span>
+			</div>
+			<div class="tabHead" targetTab="Settings">
+				<span class="tab-text">
+					Settings
+				</span>
+			</div>
+		</div>
+		<div class="tabPanel" tabName="Initializer">
+			<input type="button" onclick="App.start('REQBox')" value="Initialize Connection"  class="FullWidthButton" ></input>
+			<div id="REQBox" class="ICEBox"></div>
+			<input type="button" onclick="copy('REQBox')" value="Copy Request To Clipboard" style="height: 20px;" class="FullWidthButton"></input>
+			<h4>Response</h1>
+			
+			<textArea id="signalResponse" class="InputArea"></textArea>
+			<input type="button" onclick="paste('signalResponse')" value="Paste Response from Clipboard" style="height: 20px; margin-bottom: 5px;" class="FullWidthButton"></input>
+			<input type="button" onclick="App.importResponse('signalResponse')" value="Import Response" class="FullWidthButton"></input>
+		</div>
+		<div class="tabPanel" tabName="Joiner">
+			<textArea id="signalRequest" class="InputArea"></textArea>
+			<input type="button" onclick="paste('signalRequest')" value="Paste Request from Clipboard" style="height: 20px; margin-bottom: 5px;" class="FullWidthButton"></input>
+			<input type="button" onclick="App.join('signalRequest','RESPBox')" value="Import Request" class="FullWidthButton"></input>
+			<div id="RESPBox" class="ICEBox"></div>
+			<input type="button" onclick="copy('RESPBox')" value="Copy Response To Clipboard" style="height: 20px;" class="FullWidthButton"></input>
+		</div>
+
+		<div class="tabPanel" tabName="Settings" style="padding: 5px;">
+			<label>Name</label>
+			<input type="text" value="New User" />
+		</div>
+    </div>
+    <div class="Right">
+        <div styleClass="chatWindow">
+            <input id="Data" type="text" style="width: calc(100% - 100px)"></input>
+            <input type="button" onclick="App.send('Data')" value="Send" style="display: inline-block; float: right; width: 100px;" ></input>
+        </div>
+
+    <div style="margin-top: 10px;" id="message"></div>
+    </div>
+
+	<script>
+		var tabData = {
+			parentId: "Left",
+			startingTab: "Initializer"
+		};
+		var leftPanel = new TabComp(tabData);
+	</script>
+</body>
+
+</html>

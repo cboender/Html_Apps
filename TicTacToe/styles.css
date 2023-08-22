@@ -1,0 +1,54 @@
+body {
+	margin: 0px 5px;
+}
+#TicTacContainer {
+	display: inline-block;
+}
+
+.odd {
+	/* 	background-color: #F00; */
+	
+}
+
+.even {
+	/* 	background-color: #00F; */
+	
+}
+
+.square {
+	width: 199px;
+	height: 199px;
+	display: inline-block;
+	border-right: 1px solid #000;
+	position: relative;
+}
+
+.row {
+	border-left: 1px solid #000;
+}
+
+.row:first-child {
+	border-top: 1px solid #000;
+}
+
+.row .square {
+	border-bottom: 1px solid #000;
+}
+
+.square:not (.X ):not (.O ):hover {
+	background-color: #AFA7B2;
+}
+
+.X {
+	background-color: #F00;
+}
+
+.O {
+	background-color: #00F;
+}
+
+#header {
+	height: 30px;
+	background: #888;
+	margin-bottom: 10px;
+}
