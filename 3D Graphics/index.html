@@ -1,17 +1,42 @@
 <html>
 <head>
-	<script src="util/j3DIMath.js"></script>
-	<script src="util/webgl-utils.js"></script>
-	<script src="util/j3DI.js"></script>
+	<script src="babylon.js"></script>
+	<script src="babylon-loaders.js"></script>
+	<script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"> </script>
 	<script src="main.js"></script>
+	
+	<style>
+		#main {
+			width: 100%;
+			height: 100%;
+		}
+		
+		body {
+			background: gray;
+		}
+	</style>
 </head>
 
 <body>
 <canvas id="main">
 </canvas>
 
+<script src="Learn2-Build a static Village.js"></script>
 <script>
-
+	const canvas = document.getElementById('main')
+	const engine = new BABYLON.Engine(canvas, true);
+	
+	const scene = createScene()
+	populateScene(scene)
+	
+	BABYLON.GLTF2Export.GLBAsync(scene, "village").then(
+		gltf => { 
+		//	gltf.downloadFiles();
+		});	
+	
+	engine.runRenderLoop(function () {
+                scene.render();
+    });
 </script>
 </body>
 
