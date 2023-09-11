@@ -1,8 +1,9 @@
 <html>
 <head>
-	<script src="babylon.js"></script>
-	<script src="babylon-loaders.js"></script>
-	<script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"> </script>
+	<script src="babylon/babylon.js"></script>
+	<script src="babylon/babylon-loaders.js"></script>
+	<script src="babylon/babylon-serializers.js"> </script>
+	<script src="babylon/earcut.min.js"> </script> <!-- Used for MeshBuilder.ExtrudePolygon-->
 	<script src="main.js"></script>
 	
 	<style>
@@ -21,18 +22,18 @@
 <canvas id="main">
 </canvas>
 
-<script src="Learn2-Build a static Village.js"></script>
+<script src="learning/BuildCar.js"></script>
 <script>
 	const canvas = document.getElementById('main')
 	const engine = new BABYLON.Engine(canvas, true);
-	
 	const scene = createScene()
 	populateScene(scene)
-	
-	BABYLON.GLTF2Export.GLBAsync(scene, "village").then(
+
+	/*BABYLON.GLTF2Export.GLBAsync(scene, "village").then(
 		gltf => { 
 		//	gltf.downloadFiles();
 		});	
+		*/
 	
 	engine.runRenderLoop(function () {
                 scene.render();
