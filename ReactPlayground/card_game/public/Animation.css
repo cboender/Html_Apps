@@ -1,0 +1,21 @@
+body {
+	background-color: #484c54;
+}
+
+#box1 {
+	width: 150px;
+	height: 150px;
+	background-color: blue;
+	margin: 30px;
+	position: absolute;
+	left: 0px;
+}
+
+@keyframes color {
+	0% {
+		background-color: #070;
+	}		
+	100% {
+		background-color: #700;
+	}
+}

@@ -1,0 +1,7 @@
+.Hand {
+	display: grid;
+	grid-template-rows: auto;
+	column-gap: 30px;
+	grid-auto-flow: column;
+	justify-content: start;
+}

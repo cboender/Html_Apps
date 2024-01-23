@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<link rel="stylesheet" href="/Animation.css"></link>
+    <title>Animation playground</title>
+	<script>
+		let animRunning = false
+		let anim;
+		
+		
+		function toggleAnim() {
+			let runningLabel = document.getElementById("RunningLabel")
+			let box = document.getElementById("box1")
+			
+			if (animRunning) {
+				stopAnim(box, runningLabel)
+			} else {
+				startAnim(box, runningLabel)
+			}
+		}
+		function startAnim(box, runningLabel) {
+			if (!anim) {
+				let frames = new KeyframeEffect(document.getElementById("box1"),
+					[
+						{"left": "0px"},
+						{"left": "100px"},
+						{"left": "0px"}
+					],
+					{
+						duration: 40000
+					}
+				)
+				anim = new Animation(frames, document.timeline)
+				anim.onfinish = () => { stopAnim(box,runningLabel) }
+			}
+
+			runningLabel.innerText = "Running"
+			anim.play()
+			animRunning= true
+		}
+		function stopAnim(box, runningLabel) {
+			animRunning= false
+			anim.cancel()
+			runningLabel.innerText = "Not Running"
+		}
+		
+	</script>
+	
+  </head>
+  <body>
+	<button onclick="toggleAnim()">Toggle Animation</button>
+	<span id="RunningLabel">Not Running</span>
+	<div id="box1" >
+    </div>
+  </body>
+</html>

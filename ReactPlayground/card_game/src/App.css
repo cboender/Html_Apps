@@ -12,13 +12,16 @@
 .App-header {
   background-color: #282c34;
   height: 15vh;
-  display: flex;
+  display: grid;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
   text-align: center;
+}
+
+.App-Header h1 {
+	justify-self: center;
 }
 
 .App-body {
@@ -31,4 +34,19 @@
   color: #61dafb;
 }
 
+.Scoreboard {
+	font-size: 24px;
+	display: grid;
+	grid-template-columns: 100px auto;
+	padding: 10px;
+	justify-content: center;
+	margin-left: 230px;
+	position: absolute;
+	justify-self: start;
+}
+
+.Scoreboard label {
+	padding-right: 20px;
+	font-weight: bold;
+}
 

@@ -1,96 +1,120 @@
 .Table {
 	display: grid;
-	justify-content: center;
 	padding: 10px;
-	column-gap: 60px;
-	grid-template-rows: auto 40px auto;
+	grid-template-columns: 40% 60%;
+	column-gap: 40px;
 }
 
-.Deck {
+.DealerSection {
 	display: grid;
-	container-type: size;
-	aspect-ratio: .625;
-	height: calc(29vh + 10px);
+	justify-content: start;
+	grid-template-rows: auto auto 1fr;
+	grid-template-columns: auto 1fr;
+	row-gap: 40px;
+	padding: 20px;
 	grid-column-start: 1;
 	grid-row-start: 1;
-	grid-row-end: 4;
-	align-self: center;
 }
-
-
-.Deck:hover .Card-Wrapper::after {
-	content: ' ';
-	position: absolute;
-	background: #000;
-	opacity: .25;
-	width: 100%;
-	height: 100%;
-	top: 0px;
-	left: 0px;
-	border-radius: 10cqw;
+.DealerSection .Deck {
+	padding-left: 75px;
 }
-
-.Deck:hover {
-	cursor: pointer;
-}
-
-.Deck:hover .DeckLabel>span::after {
-	content: 'Deal';
-	position: absolute;
-	color: #00F;
-	opacity: .5;
-	top: 0px;
-	left: 0px;
-	border-radius: 10cqw;
-}
-
-.DeckLabel {
-	text-align: center;
-	font-size: 20cqh;
-	color: white;
-	grid-row-start: 1;
-	grid-column-start: 1;
-	z-index: 1;
-	padding-left: 10px;
-	padding-top: 10px;
-	margin-top: 50%;
-	user-select: none;
-}
-
-.DeckLabel>span {
-	position: relative;
-}
-
-.Deck .Card-Wrapper {
-	grid-row-start: 1;
-	grid-column-start: 1;
-}	
-
-.Hand {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	column-gap: 30px;
-	grid-column-start: 2;
-}
-
-.Hand.Player {
-	grid-row-start: 3;
-}
-
-.Hand.Dealer {
-	grid-row-start: 1;
-}	
-.HandLabel {
-	font-size: 30px;
+.DealerSection .Hand {
 	grid-column-start: 1;
 	grid-column-end: 3;
+}
+
+.DealerSection .HandTotal {
+	padding-left: 70px;
+}
+
+.PlayerSection {
+	display:grid;
+	grid-template-rows: auto 1fr;
+	grid-template-columns: auto 1fr;
+	row-gap: 40px;
+	justify-content: start;
+	padding: 20px;
+}
+
+.PlayerSection .Hand {
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+
+.HandTotal {
+	font-size: 30px;
 	text-align: center;
-	padding: 8px;
+}
+
+.HandTotal label {
+	font-weight: Bold;
+	padding-right: 20px;
 }
 
 .Actions {
-	grid-row-start: 4;
-	grid-column-start: 2;
-	justify-self: center;
-	padding: 20px;
+	padding-left: 10px;
+	grid-row-start: 2;
 }
+
+.DeckAnimateHolder {
+	position: absolute !important;
+}
+
+@keyframes gameEnd {
+	0% {
+		opacity: 0;
+		scale: 0;
+		padding: 0px 0px;
+		text-align: center;
+		pointer-events: auto;
+	}
+
+	33% {
+		opacity: 1;
+		text-align: center;
+		padding: 300px 0px;
+		scale: 1;
+	}
+	100% {
+		scale: 2;
+		opacity: 1;
+		text-align: center;
+		pointer-events: auto;
+	}
+}
+
+@keyframes gameEndColor {
+	0% {
+		color: green;
+	}
+	50% {
+		color: purple;
+	}
+	75% {
+		color: blue;
+	}
+	100% {
+		color: green;
+	}
+}
+
+.ResultNotification {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	pointer-events: none;
+	padding: 300px 0px;
+	animation-duration: 2s; 
+	opacity: 0;
+}
+
+.NotificationText {
+	font-size: 200px;
+	font-weight: bolder;
+	text-shadow: 10px 10px 11px black;
+	animation-name: gameEndColor;
+	animation-duration: 6s; 
+	animation-iteration-count: infinite;
+}
+

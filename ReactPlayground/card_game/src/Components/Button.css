@@ -7,7 +7,7 @@
 	position: relative;
 }
 
-.btn-default:hover::after {
+.btn-default:hover:not(:disabled)::after {
 	content: ' ';
 	position: absolute;
 	background: #000;
